@@ -50,35 +50,3 @@ int main(){
 
 return 0;
 }
-
-/*
-#include <iostream>
-#include <string.h>
-#include<stdio.h>
-
-
-
-int main()
-{
-    char cadena[1000];
-    int palindromo, p = 0;
-    printf("Escribe la palabra:\n");
-    scanf_s("%s", cadena, 1000);
-    fflush(stdout);
-    palindromo = strlen(cadena) - 1;
-
-    //for (int cad_izquierda = 0, cad_derecha = palindromo - 1; cad_izquierda = (palindromo / 2); cad_izquierda++, cad_derecha--) {
-    for (int i = 0; i <= (palindromo / 2); i++) {
-        if (cadena[i] != cadena[palindromo - i])   p++;
-    }
-
-    if(p > 0){
-        printf("No");
-    }
-
-    else{
-        printf("Si");
-    }
-
-    return 0;
-}*/
