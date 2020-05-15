@@ -61,80 +61,115 @@ void modificar(char ips, int n){
     }
 }
 
+void impresion(){
+    printf("== Estas son las personas registradas ==\n");
+        for(int i = 0; i < 10; i++){//inicia la secuencia de impresion de cada dato de la persona
+            if(array_de_personas[i].id_persona == 0) continue;
+            printf("ID: %d\n",array_de_personas[i].id_persona);
+            printf("Nombre: %s",array_de_personas[i].nombre);
+            printf("Sexo: %c\n",array_de_personas[i].sexo);
+            printf("Direccion: %s",array_de_personas[i].direccion);
+            printf("Religion: %s",array_de_personas[i].religion);
+            printf("Escolaridad: %s",array_de_personas[i].escolaridad);
+            printf("Edad: %d\n",array_de_personas[i].edad);
+            printf(" ------------------------------------- \n");
+        }
+}
+
+void registro(int n){
+    array_de_personas[n].id_persona = n+1;
+    printf("\n\tRegistro #%d\n", n+1);
+    printf(" * Introduzca su nombre completo: ");
+    fgets(array_de_personas[n].nombre, 99,stdin);
+
+    printf("\n* Introduzca el sexo de la persona [H/M]: ");
+    array_de_personas[n].sexo = getc(stdin);
+    while ((d = getc(stdin)) != '\n' && d != EOF); //Esta linea hace flush a la entrada
+
+    printf("\n* Introduzca la direccion: ");
+    fgets(array_de_personas[n].direccion, 99,stdin);
+
+    printf("\n* Introduzca la religion: ");
+    fgets(array_de_personas[n].religion, 49,stdin);
+
+    printf("\n* Introduzca la escolaridad: ");
+    fgets(array_de_personas[n].escolaridad, 19,stdin);
+
+    printf("\n* Introduzca la edad: ");
+    scanf("%hu", &array_de_personas[n].edad);
+    while ((d = getc(stdin)) != '\n' && d != EOF); //Esta linea hace flush a la entrada
+
+    printf("\n** Persona registrada exitosamente **\n");
+    printf("\n ------------------------------------- \n\n");
+
+}
 
 int main(int argc, char const *argv[]){
 
     FILE *miaarchivo;
     //miaarchivo = fopen("miarchivo.bin", "wb+");
 
-    printf("\t== BIENVENIDO AL MENU ==\t\n\n");
-    printf("     1. Cargar datos de un archivo. \t\n");
-    printf("     2. Modificar datos de una persona. \t\n");
-    printf("     3. Mostrar lista de personas. \t\n");
-    printf("     4. Guardar datos en archivo. \t\n");
-    printf("     5. Salir. \t\n");
     //printf("\n\tSeleccione una opcion: ");
 
     do{
-        printf("\n\n\tSeleccione una opcion: ");
+        printf("\n\t== BIENVENIDO AL MENU ==\t\n\n");
+        printf("     1. Cargar datos de un archivo. \t\n");
+        printf("     2. Modificar datos de una persona. \t\n");
+        printf("     3. Mostrar lista de personas. \t\n");
+        printf("     4. Guardar datos en archivo. \t\n");
+        printf("     5. Salir. \t\n");
+        printf("\n\tSeleccione una opcion: ");
         scanf("%d",&opc);
         while ((d = getc(stdin)) != '\n' && d != EOF); //Esta linea hace flush a la entrada
+
         switch(opc){
             case 1:
                 miaarchivo = fopen("miarchivo.bin", "rb");
                 if(miaarchivo == NULL){
-                    printf("\n\t** Error al abrir archivo, no hay datos. **\n");
+                    printf("\n** Error al abrir archivo, no hay datos. **\n");
                 }
                 else{
                     fread(array_de_personas, sizeof(Persona),10,miaarchivo);//lee cada linea y las almacena en el arr de personas
-                    printf("\n\t** Archivo cargado exitosamente. **\n");
+                    printf("\n** Archivo cargado exitosamente. **\n");
                     fclose(miaarchivo);
                 }
                 break;
 
             case 2:
                 if(array_de_personas[0].id_persona != 1){
-                    do{	printf("\n\t** Error, no existen registros aun. **\n ¿Desea agregar datos? S/N: ");
-                    		scanf("%c", &dec);
-                  				switch(dec)
-                          {
-                            case 'S':
-                                    printf("¿Cuantas personas desea integrar? [1-10]: ");
-                                    scanf("%d", &p);
-                                    while ((d = getc(stdin)) != '\n' && d != EOF); //Esta linea hace flush a la entrada
-                                    for(int i = 0; i < p; i++)
-                                    {
-                                            array_de_personas[i].id_persona = i+1;
+                    printf("\n\ ** Error, no existen registros aun. **\n\n%5sÂ¿Desea agregar datos? S/N: ");
+                    scanf("%c", &dec);
+                  	if(dec == 'S'){
+                        printf("\n  Numero de registros a integrar: ");
+                        scanf("%d", &p);
+                        while ((d = getc(stdin)) != '\n' && d != EOF); //Esta linea hace flush a la entrada
 
-                                            printf("Introduzca su nombre completo:\n");
-                                            fgets(array_de_personas[i].nombre, 99,stdin);
-
-                                            printf("Introduzca el sexo de la persona [H/M]:\n");
-                                            array_de_personas[i].sexo = getc(stdin);
-                                            while ((d = getc(stdin)) != '\n' && d != EOF); //Esta linea hace flush a la entrada
-
-                                            printf("Introduzca la direccion:\n");
-                                            fgets(array_de_personas[i].direccion, 99,stdin);
-
-                                            printf("Introduzca la religion:\n");
-                                            fgets(array_de_personas[i].religion, 49,stdin);
-
-                                            printf("Introduzca la escolaridad:\n");
-                                            fgets(array_de_personas[i].escolaridad, 19,stdin);
-
-                                            printf("Introduzca la edad:\n");
-                                            scanf("%hu", &array_de_personas[i].edad);
-                                            while ((d = getc(stdin)) != '\n' && d != EOF); //Esta linea hace flush a la entrada
-                                    }
-                        	}
-                	}while(dec !='N');
+                        for(int i = 0; i < p; i++){
+                            registro(i);
+                        }
+                    }
                 }
+
                 else{
                     printf("Digite el ID de la persona que quiera modificar: ");
                     scanf("%d", &opc);
                     while((d = getc(stdin)) != '\n' && d != EOF);
+                    if(array_de_personas[opc-1].id_persona == 0){
+                        printf("Lo sentimos. No existe registro.\n");
+                        printf("Â¿Quiere registrar uno nuevo? S/N: \n");
+                        scanf("%c", &dec);
+                        if(dec == 'S'){
+                            printf("\n  Numero de registros a integrar: ");
+                            scanf("%d", &p);
+                            while ((d = getc(stdin)) != '\n' && d != EOF); //Esta linea hace flush a la entrada
 
-                    for(int i = 0; i < 2; i++){
+                            for(int i = 0; i < p; i++){
+                                registro(i);
+                            }
+                        }
+                    }
+
+                    for(int i = 0; i < 10; i++){
                         if(array_de_personas[i].id_persona == opc){
                             printf("\n== Seleccione el dato a modificar ==\n\n");
                             printf("       I = ID de la persona\n");
@@ -154,36 +189,25 @@ int main(int argc, char const *argv[]){
                 break;
 
             case 3:
-
-                if(array_de_personas[0].id_persona != 1){
-                    printf("\n\t** Error, no existen registros aun. **\n");
+                if(array_de_personas[0].id_persona == 0){
+                    printf("\n** Error, no existen registros aun. **\n");
                 }
                 else{
-                    printf("== Estas son las personas registradas ==\n");
-                    for(int i = 0; i < 10; i++){//inicia la secuencia de impresion de cada dato de la persona
-                        printf("ID: %d\n",array_de_personas[i].id_persona);
-                        printf("Nombre: %s\n",array_de_personas[i].nombre);
-                        printf("Sexo: %c\n",array_de_personas[i].sexo);
-                        printf("Direccion: %s\n",array_de_personas[i].direccion);
-                        printf("Religion: %s\n",array_de_personas[i].religion);
-                        printf("Escolaridad: %s\n",array_de_personas[i].escolaridad);
-                        printf("Edad: %d\n",array_de_personas[i].edad);
-                    }
+                    impresion();
                 }
-
-                //fclose(miaarchivo);
                 break;
 
             case 4:
-                miaarchivo = fopen("miarchivo.bin", "wb");
+                miaarchivo = fopen("miarchivo.bin", "wb+");
                 fwrite(array_de_personas, sizeof(Persona), 10, miaarchivo);
-                printf("\n\t** Archivo guardado exitosamente. **\n");
-                //fclose(miaarchivo);miaarchivo = fopen("miarchivo.bin", "rb");
+                printf("\n** Archivo guardado exitosamente. **\n");
+
                 break;
         }
-    }while(opc != 5);
-    printf("\n\t** Gracias por usar nuestro programa. **\n");
-    printf("\n\t**           Vuelva pronto            **\n");
+    } while(opc != 5);
+
+    printf("\n** Gracias por usar nuestro programa  **\n");
+    printf("\n**           Vuelva pronto            **\n");
 
     return 0;
 }
