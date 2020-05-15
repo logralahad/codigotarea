@@ -137,7 +137,7 @@ int main(int argc, char const *argv[]){
 
             case 2:
                 if(array_de_personas[0].id_persona != 1){
-                    printf("\n\ ** Error, no existen registros aun. **\n\n%5s¿Desea agregar datos? S/N: ");
+                    printf("\n ** Error, no existen registros aun. **\n\n%5s¿Desea agregar datos? S/N: ");
                     scanf("%c", &dec);
                   	if(dec == 'S'){
                         printf("\n  Numero de registros a integrar: ");
