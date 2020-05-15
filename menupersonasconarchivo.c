@@ -1,3 +1,10 @@
+/*
+EQUIPO:
+RAFAEL ANTONIO
+OCTAVIO AGUSTIN
+MIGUEL ANGEL
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
