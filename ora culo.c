@@ -116,13 +116,13 @@ int main()
 
     if(opc == 0){
         do{
-            if(turnos % 2 == 0 || turnos == 0){//si el turno es el primero o impar significa que es el jugador 1
+            if(turnos % 2 == 0 || turnos == 0){//si el turno es el primero o par significa que es el jugador 1
                 printf("\nEl jugador 1 realizo el tiro, se muestra el tablero a continuacion:\n\n");
                 sprintf(buffer1, "jugada_gato1.exe tablero.txt %c %c", piezaalazar[0], piezaalazar[1]);//construye el comando para que se ejecute el programa del jugador1
                 system(buffer1);
                 //printf("%s", buffer1);
             }
-            else{//si el turno es el segundo o par significa que es el jugador 2
+            else{//si el turno es el segundo o impar significa que es el jugador 2
                 printf("\nEl jugador 2 realizo el tiro, se muestra el tablero a continuacion:\n\n");
                 sprintf(buffer2, "jugada_gato2.exe tablero.txt %c %c", piezaalazar[1], piezaalazar[0]);//construye el comando para que se ejecute el programa del jugador2
                 system(buffer2);
